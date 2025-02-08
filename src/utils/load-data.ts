@@ -11,6 +11,4 @@ export type ElementData = {
   symbol: string
 }
 
-export function loadTableData(): ElementData[] {
-  return _data
-}
+export const tableData: ElementData[] = _data

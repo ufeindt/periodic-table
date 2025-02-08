@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { loadTableData } from '../utils/load-data'
+import { tableData } from '../utils/load-data'
 import ElementCell from './ElementCell.vue'
 
 const highlightedBlock = ref<string | null>(null)
-
-const tableData = loadTableData()
 
 function setHighlightedBlock(block: string) {
   if (highlightedBlock.value === block) {
@@ -39,5 +37,11 @@ function setHighlightedBlock(block: string) {
   margin: 0 auto;
   padding: 1rem;
   width: fit-content;
+}
+
+@media screen and (min-width: 100rem) {
+  .table {
+    grid-template-columns: repeat(18, 5rem);
+  }
 }
 </style>

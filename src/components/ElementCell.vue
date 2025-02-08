@@ -52,4 +52,24 @@ watch(
   hyphens: auto;
   text-align: center;
 }
+
+@media screen and (min-width: 100rem) {
+  .element {
+    height: 5.5rem;
+    width: 4.5rem;
+  }
+
+  .atomic-number {
+    font-size: 0.75rem;
+  }
+  .symbol {
+    font-size: 1.875rem;
+    text-align: center;
+  }
+  .name {
+    font-size: 0.75rem;
+    hyphens: auto;
+    text-align: center;
+  }
+}
 </style>
