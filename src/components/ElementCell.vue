@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue'
 import type { ElementData } from '@/utils/load-data'
-const { data, highlight = false } = defineProps<{ data: ElementData; highlight: boolean }>()
+const {
+  data,
+  highlight = false,
+  inverted,
+  maxRow,
+} = defineProps<{ data: ElementData; highlight: boolean; inverted: boolean; maxRow: number }>()
 const inlineStyle = reactive({
   'background-color': highlight
     ? `var(--color-block-${data.block}-background)`
     : 'var(--color-background-soft)',
   'border-color': `var(--color-block-${data.block}-border)`,
   'grid-column': data.column,
-  'grid-row': data.row,
+  'grid-row': inverted ? maxRow - data.row + 2 : data.row,
 })
 
 watch(
@@ -17,6 +22,12 @@ watch(
     inlineStyle['background-color'] = newValue
       ? `var(--color-block-${data.block}-background)`
       : 'var(--color-background-soft)'
+  },
+)
+watch(
+  () => inverted,
+  (newValue) => {
+    inlineStyle['grid-row'] = newValue ? maxRow - data.row + 2 : data.row
   },
 )
 </script>
@@ -31,10 +42,9 @@ watch(
 
 <style scoped>
 .element {
-  background-color: var(--color-background-soft);
-  border-color: var(--color-border);
   border-style: solid;
   border-radius: 0.5rem;
+  cursor: pointer;
   height: 3.75rem;
   padding: 0.25rem;
   width: 3rem;

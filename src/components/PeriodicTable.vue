@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { tableData } from '../utils/load-data'
 import ElementCell from './ElementCell.vue'
 
 const highlightedBlock = ref<string | null>(null)
+const inverted = ref(false)
+const maxRow = Math.max(...tableData.map((elementData) => elementData.row))
 
 function setHighlightedBlock(block: string) {
   if (highlightedBlock.value === block) {
@@ -12,14 +14,21 @@ function setHighlightedBlock(block: string) {
     highlightedBlock.value = block
   }
 }
+
+function toggleInverted() {
+  inverted.value = !inverted.value
+}
 </script>
 
 <template>
   <div class="table">
+    <div class="invert-button" @click="toggleInverted"><p>Invert</p></div>
     <template v-for="elementData in tableData" :key="elementData.atomicNumber">
       <ElementCell
         :data="elementData"
         :highlight="highlightedBlock === elementData.block"
+        :inverted="inverted"
+        :maxRow="maxRow"
         @click="setHighlightedBlock(elementData.block)"
       />
     </template>
@@ -39,9 +48,34 @@ function setHighlightedBlock(block: string) {
   width: fit-content;
 }
 
+.invert-button {
+  align-items: center;
+  background-color: var(--color-background-soft);
+  border-color: var(--color-border);
+  border-style: solid;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: flex;
+  grid-column: 9 / 11;
+  grid-row: 1;
+  height: 3.75rem;
+  justify-content: center;
+  padding: auto;
+}
+.invert-button p {
+  font-size: 1.25rem;
+}
+
 @media screen and (min-width: 100rem) {
   .table {
     grid-template-columns: repeat(18, 5rem);
+  }
+
+  .invert-button {
+    height: 5.5rem;
+  }
+  .invert-button p {
+    font-size: 1.875rem;
   }
 }
 </style>
