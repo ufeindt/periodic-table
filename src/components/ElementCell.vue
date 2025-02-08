@@ -1,9 +1,24 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
+import { reactive, watch } from 'vue'
 import type { ElementData } from '@/utils/load-data'
-const { data } = defineProps<{ data: ElementData }>()
-const inlineStyle = reactive({ 'grid-column': data.column, 'grid-row': data.row })
-console.log(inlineStyle)
+const { data, highlight = false } = defineProps<{ data: ElementData; highlight: boolean }>()
+const inlineStyle = reactive({
+  'background-color': highlight
+    ? `var(--color-block-${data.block}-background)`
+    : 'var(--color-background-soft)',
+  'border-color': `var(--color-block-${data.block}-border)`,
+  'grid-column': data.column,
+  'grid-row': data.row,
+})
+
+watch(
+  () => highlight,
+  (newValue) => {
+    inlineStyle['background-color'] = newValue
+      ? `var(--color-block-${data.block}-background)`
+      : 'var(--color-background-soft)'
+  },
+)
 </script>
 
 <template>

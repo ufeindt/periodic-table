@@ -1,12 +1,29 @@
 <script setup lang="ts">
-import { tableData } from '../utils/load-data'
+import { ref } from 'vue'
+import { loadTableData } from '../utils/load-data'
 import ElementCell from './ElementCell.vue'
+
+const highlightedBlock = ref<string | null>(null)
+
+const tableData = loadTableData()
+
+function setHighlightedBlock(block: string) {
+  if (highlightedBlock.value === block) {
+    highlightedBlock.value = null
+  } else {
+    highlightedBlock.value = block
+  }
+}
 </script>
 
 <template>
   <div class="table">
     <template v-for="elementData in tableData" :key="elementData.atomicNumber">
-      <ElementCell :data="elementData" />
+      <ElementCell
+        :data="elementData"
+        :highlight="highlightedBlock === elementData.block"
+        @click="setHighlightedBlock(elementData.block)"
+      />
     </template>
   </div>
 </template>

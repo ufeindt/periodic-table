@@ -19,6 +19,21 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+
+  --vt-c-block-s-20: hsl(347, 100%, 20%);
+  --vt-c-block-p-20: hsl(46, 100%, 20%);
+  --vt-c-block-d-20: hsl(207, 100%, 20%);
+  --vt-c-block-f-20: hsl(128, 100%, 20%);
+
+  --vt-c-block-s-65: hsl(347, 100%, 65%);
+  --vt-c-block-p-65: hsl(46, 100%, 65%);
+  --vt-c-block-d-65: hsl(207, 100%, 65%);
+  --vt-c-block-f-65: hsl(128, 100%, 65%);
+
+  --vt-c-block-s-85: hsl(347, 100%, 85%);
+  --vt-c-block-p-85: hsl(46, 100%, 85%);
+  --vt-c-block-d-85: hsl(207, 100%, 85%);
+  --vt-c-block-f-85: hsl(128, 100%, 85%);
 }
 
 /* semantic color variables for this project */
@@ -34,6 +49,18 @@
   --color-text: var(--vt-c-text-light-1);
 
   --section-gap: 160px;
+
+  --color-block-s-border: var(--vt-c-block-s-65);
+  --color-block-s-background: var(--vt-c-block-s-85);
+
+  --color-block-p-border: var(--vt-c-block-p-65);
+  --color-block-p-background: var(--vt-c-block-p-85);
+
+  --color-block-d-border: var(--vt-c-block-d-65);
+  --color-block-d-background: var(--vt-c-block-d-85);
+
+  --color-block-f-border: var(--vt-c-block-f-65);
+  --color-block-f-background: var(--vt-c-block-f-85);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -47,6 +74,18 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
+
+    --color-block-s-border: var(--vt-c-block-s-65);
+    --color-block-s-background: var(--vt-c-block-s-20);
+
+    --color-block-p-border: var(--vt-c-block-p-65);
+    --color-block-p-background: var(--vt-c-block-p-20);
+
+    --color-block-d-border: var(--vt-c-block-d-65);
+    --color-block-d-background: var(--vt-c-block-d-20);
+
+    --color-block-f-border: var(--vt-c-block-f-65);
+    --color-block-f-background: var(--vt-c-block-f-20);
   }
 }
 

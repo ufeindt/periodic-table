@@ -5,9 +5,12 @@ export type ElementData = {
   atomicWeight: string
   block: string
   column: number
+  highlight?: boolean
   name: string
   row: number
   symbol: string
 }
 
-export const tableData: ElementData[] = _data
+export function loadTableData(): ElementData[] {
+  return _data
+}
