@@ -1,11 +1,30 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { tableData } from '../utils/load-data'
+import { ref, reactive } from 'vue'
+import { tableData, type ElementData } from '../utils/load-data'
 import ElementCell from './ElementCell.vue'
 
 const highlightedBlock = ref<string | null>(null)
 const inverted = ref(false)
+const searchTerm = ref('')
 const maxRow = Math.max(...tableData.map((elementData) => elementData.row))
+
+function getCellStyle(cellData: ElementData) {
+  return {
+    'grid-column': cellData.column,
+    'grid-row': inverted.value ? maxRow - cellData.row + 2 : cellData.row,
+  }
+}
+
+function searchMatch(cellData: ElementData): boolean {
+  if (!searchTerm.value) {
+    return false
+  }
+  const term = searchTerm.value.toLocaleLowerCase()
+
+  return ['name', 'symbol', 'atomicNumber'].some((prop) =>
+    cellData[prop]?.toString().toLocaleLowerCase().includes(term),
+  )
+}
 
 function setHighlightedBlock(block: string) {
   if (highlightedBlock.value === block) {
@@ -21,17 +40,18 @@ function toggleInverted() {
 </script>
 
 <template>
+  <input text v-model="searchTerm" />
   <div class="table">
     <div class="invert-button" @click="toggleInverted"><p>Invert</p></div>
-    <template v-for="elementData in tableData" :key="elementData.atomicNumber">
-      <ElementCell
-        :data="elementData"
-        :highlight="highlightedBlock === elementData.block"
-        :inverted="inverted"
-        :maxRow="maxRow"
-        @click="setHighlightedBlock(elementData.block)"
-      />
-    </template>
+    <ElementCell
+      v-for="elementData in tableData"
+      :key="elementData.atomicNumber"
+      :data="elementData"
+      :highlight="highlightedBlock === elementData.block"
+      :match="searchMatch(elementData)"
+      :style="getCellStyle(elementData)"
+      @click="setHighlightedBlock(elementData.block)"
+    />
   </div>
 </template>
 

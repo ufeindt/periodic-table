@@ -3,7 +3,7 @@ import _data from '../data/periodic-table-data.json'
 export type ElementData = {
   atomicNumber: number
   atomicWeight: string
-  block: string
+  block: 's' | 'f' | 'p' | 'd'
   column: number
   highlight?: boolean
   name: string
@@ -11,4 +11,4 @@ export type ElementData = {
   symbol: string
 }
 
-export const tableData: ElementData[] = _data
+export const tableData = _data as ElementData[]
